@@ -1,12 +1,37 @@
 # Healthcare Chatbot Project
 
-This is a healthcare chatbot application developed using Python, Streamlit, and MongoDB. The chatbot helps diagnose symptoms, suggest treatments, provide precautions, and help with medicine availability in first aid rooms at different departments. Users can also book appointments with doctors based on the symptoms they describe.
+This healthcare chatbot application is designed to support university students by providing immediate assistance for both physical and mental health concerns. Developed using Python, Streamlit, and MongoDB, the chatbot serves as a virtual healthcare assistant, offering personalized advice on symptoms, treatments, first aid room availability, and doctor appointments—all tailored for the university environment.
+
+Whether it's a common cold, stress from exams, or any health-related issue, students can rely on this tool for quick guidance and support. The chatbot also helps students navigate through healthcare resources available on campus, from medicines in first aid rooms to booking consultations with campus doctors.
 
 ## Features
-- **Symptom Diagnosis**: The chatbot diagnoses the user's symptoms based on a pre-trained model and suggests treatments and medicines.
-- **First Aid Room Information**: The chatbot checks medicine availability in the selected department's first aid room.
-- **Appointment Booking**: Users can book appointments with doctors for further consultation.
-- **Live Demo**: A live demo of the application can be accessed via [HealthAlly Demo](https://your-streamlit-link.com).
+
+- **Symptom Diagnosis**: The chatbot uses a pre-trained machine learning model to accurately diagnose symptoms reported by the student, suggesting the most probable conditions, treatments, and medications.
+  
+- **First Aid Room Information**: The chatbot checks the availability of medicines in the campus first aid rooms by referencing the specific department where the student is located. It ensures students have access to immediate care options if needed.
+
+- **Mental Health Support**: Understanding that university life can be stressful, the chatbot can also assist students in managing mental health concerns by offering stress-relief suggestions, tips for maintaining mental well-being, and connecting students to counseling services if necessary.
+
+- **Appointment Booking**: Students can book appointments with university healthcare providers (doctors, counselors, etc.), directly through the chatbot interface. The chatbot ensures that students are guided to book timely consultations based on their symptoms or concerns.
+
+- **Academic and Study-Related Health**: The chatbot provides advice on maintaining physical and mental health during exam seasons, managing study-related stress, taking breaks, and how to improve overall academic performance through good health practices.
+
+- **Real-Time Assistance**: The chatbot is available 24/7 to address any urgent health or wellness issues, making it a reliable companion for students any time they need it.
+
+- **Live Demo**: A live demo of the application can be accessed via [HealthAlly Demo](https://your-streamlit-link.com), providing a seamless experience for potential users to test the functionality and features.
+
+### Target Audience
+
+This chatbot is primarily focused on university students and addresses the following needs:
+
+- **Physical Health Concerns**: It offers support in diagnosing common illnesses like fever, cough, cold, headaches, and more, based on symptoms described by the student.
+- **Mental Health and Stress Management**: It provides resources to manage stress, anxiety, and mental health challenges commonly faced by students.
+- **Campus Healthcare Resources**: The chatbot assists students in accessing medicines and healthcare resources within their university campus, especially first aid and health consultations.
+- **Convenience**: Students can manage their health directly through a user-friendly interface, without the need to wait for in-person consultations.
+
+This project aims to bridge the gap between students and healthcare by providing instant support and information, reducing the time it takes to get the care they need.
+
+
 
 ## Prerequisites
 
@@ -24,7 +49,7 @@ To run this project locally, ensure you have the following installed:
 You can either fork the repository to your GitHub account or clone it directly to your local machine using the following command:
 
 ```bash
-git clone https://github.com/yourusername/healthcare-chatbot.git
+git clone https://github.com/AdesharaBrijesh/HealthAlly.git
 ```
 
 ### 2. Install Dependencies
@@ -81,13 +106,26 @@ A live version of the healthcare chatbot is available on Streamlit. You can acce
 ```
 healthcare-chatbot/
 │
-├── app.py                  # Main application file with Streamlit UI and logic
+├── .vscode/                # Visual Studio Code settings
 ├── config.py               # MongoDB connection URL (should not be pushed to GitHub)
-├── data/                   # Directory containing symptom diagnosis CSV data
+├── data/                   # Directory containing data files
 │   └── data.csv            # CSV file with symptoms, conditions, treatments, and medicines
-├── .gitignore              # Specifies which files/folders should be ignored by Git
+├── pages/                  # Pages for the app (for Streamlit multi-page setup)
+│   ├── appointment_booking.py  # Appointment booking page
+│   ├── chat.py             # Chat page
+│   ├── dashboard.py        # Dashboard page
+│   ├── data_analysis.py    # Data analysis page
+│   ├── history.py          # Chat history page
+│   ├── login.py            # Login page
+│   └── profile.py          # User profile page
 ├── requirements.txt        # List of Python dependencies
-├── README.md               # Project documentation (this file)
+├── streamlit_app.py        # Entry point for the Streamlit app
+├── styles/                 # Custom CSS for the app
+│   └── sidebar.css         # Sidebar styles
+├── venv/                   # Virtual Environment
+├── .gitignore              # Specifies which files/folders should be ignored by Git
+└── README.md               # Project documentation (this file)
+
 ```
 
 ### .gitignore Example
@@ -98,7 +136,6 @@ Ensure that the `.gitignore` file includes `config.py` to prevent it from being 
 # .gitignore
 config.py
 venv/
-__pycache__/
 ```
 
 ### requirements.txt Example

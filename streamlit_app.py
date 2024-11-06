@@ -54,26 +54,8 @@ if st.session_state.logged_in:
         logout()  # Call logout function
     show_default_content()
 
-    # Navigation logic based on current page selection
-    # if st.session_state.page == "profile":
-    #     exec(open("pages/profile.py").read())  # Run the profile page script
-    # elif st.session_state.page == "chat":
-    #     exec(open("pages/chat.py").read())  # Run the chat page script
-    # elif st.session_state.page == "dashboard":
-    #     exec(open("pages/dashboard.py").read())  # Run the dashboard page script
-    # elif st.session_state.page == "admin_dashboard":
-    #     exec(open("admin/admin_dashboard.py").read())  # Run the admin dashboard page script
-    # elif st.session_state.page == "data_management":
-    #     exec(open("admin/data_management.py").read())  # Run the data management page script
-    # elif st.session_state.page == "data_analysis":
-    #     exec(open("admin/data_analysis.py").read())  # Run the data analysis page script
-
 else:
     # Show the login page if the user is not logged in
     st.write("Please log in to access the app.")
     exec(open("pages/login.py").read())  # Run the login page script
 
-# Footer at the bottom of the sidebar
-# st.sidebar.markdown("---")
-# st.sidebar.text("MyHealthAlly © 2024")
-# st.sidebar.text("All rights reserved.")
