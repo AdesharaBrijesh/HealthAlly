@@ -1,4 +1,4 @@
 # .gitignore
 /venv
 /model
-config.py
+# config.py
