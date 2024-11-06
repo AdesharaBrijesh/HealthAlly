@@ -136,6 +136,10 @@ Ensure that the `.gitignore` file includes `config.py` to prevent it from being 
 # .gitignore
 config.py
 venv/
+# .gitignore
+config.py
+venv/
+__pycache__/
 ```
 
 ### requirements.txt Example
