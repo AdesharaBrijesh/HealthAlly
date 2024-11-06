@@ -1,0 +1,9 @@
+torch==2.0.1
+transformers==4.30.0
+numpy
+streamlit
+pymongo
+pandas
+matplotlib
+seaborn
+scikit-learn

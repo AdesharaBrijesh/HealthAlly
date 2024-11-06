@@ -1,0 +1,29 @@
+/* Custom sidebar styling */
+.sidebar .block-container {
+    background-color: #f4f4f4; /* Light gray background */
+    border-right: 1px solid #ddd; /* Subtle border */
+}
+
+.sidebar .stButton {
+    margin-bottom: 10px; /* Space between buttons */
+}
+
+.sidebar .stButton button {
+    width: 100%; /* Full width buttons */
+    background-color: #4CAF50; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    padding: 10px;
+    text-align: left; /* Align text to the left */
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .stButton button:hover {
+    background-color: #45a049; /* Hover color */
+}
+
+.sidebar .markdown-text {
+    font-size: 14px;
+    color: #555; /* Footer text color */
+}
