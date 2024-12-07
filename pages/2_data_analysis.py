@@ -5,10 +5,38 @@ import seaborn as sns
 from pymongo import MongoClient
 from bson import ObjectId
 from config import MONGO_URI
+import sqlite3
 
 # MongoDB connection
 client = MongoClient(MONGO_URI)
 db = client["healthcare_chatbot"]
+
+# SQLite Database Connection for Users
+def fetch_user_data():
+    conn = sqlite3.connect("user_data.db")
+    try:
+        query = "SELECT * FROM users"
+        df = pd.read_sql_query(query, conn)
+        return df
+    except Exception as e:
+        st.error(f"Error fetching data: {e}")
+        return pd.DataFrame()  # Return empty DataFrame in case of an error
+    finally:
+        conn.close()
+
+# SQLite Database Connection for Queries
+def fetch_queries_data():
+    conn = sqlite3.connect("user_data.db")
+    try:
+        query = "SELECT * FROM queries"
+        df = pd.read_sql_query(query, conn)
+        return df
+    except Exception as e:
+        st.error(f"Error fetching query data: {e}")
+        return pd.DataFrame()  # Return empty DataFrame in case of an error
+    finally:
+        conn.close()
+
 
 # Admin login function
 def admin_login():
@@ -41,9 +69,13 @@ def fetch_admin_data():
 
 # Main function to run the analysis page
 def main():
+    # Add a custom Streamlit theme for a modern look
+    # st.set_page_config(page_title="Admin Dashboard", page_icon="📊", layout="wide")
+    
     if 'is_admin_logged_in' not in st.session_state or not st.session_state.is_admin_logged_in:
         admin_login()  # Show login page
     else:
+        # Sidebar for logout and options
         st.sidebar.header("Admin Options")
         if st.sidebar.button("Logout"):
             st.session_state.is_admin_logged_in = False
@@ -68,24 +100,52 @@ def main():
         if department_filter:
             user_data = user_data[user_data['department'].isin(department_filter)]
 
+        # Improved visualization of User Distribution by Department with a sleek barplot
         st.subheader("User Distribution by Department")
         department_counts = user_data['department'].value_counts()
-        plt.figure(figsize=(8, 4))
-        sns.barplot(x=department_counts.index, y=department_counts.values, palette='viridis')
-        plt.title("User Distribution by Department")
+        plt.figure(figsize=(10, 6))
+        sns.set(style="whitegrid")
+        sns.barplot(x=department_counts.index, y=department_counts.values, palette='coolwarm')
+        plt.title("User Distribution by Department", fontsize=16)
         plt.xticks(rotation=45)
         st.pyplot(plt)
 
+        # Enhanced User Age Distribution with styling
         st.subheader("User Age Distribution")
         if 'age' in user_data.columns:
             age_counts = user_data['age'].value_counts()
-            plt.figure(figsize=(8, 4))
-            sns.lineplot(x=age_counts.index, y=age_counts.values, marker='o')
-            plt.title("User Age Distribution")
+            plt.figure(figsize=(10, 6))
+            sns.set(style="whitegrid")
+            sns.lineplot(x=age_counts.index, y=age_counts.values, marker='o', color='teal')
+            plt.title("User Age Distribution", fontsize=16)
             st.pyplot(plt)
 
         st.subheader("Detailed User Data")
         st.dataframe(user_data)
+
+        # Streamlit Application for Viewing Database
+        st.title("User & Query Database Viewer 📋")
+        st.markdown("View the data stored in the `users` and `queries` tables of the SQLite database.")
+        
+        # Fetch data from both tables
+        user_data = fetch_user_data()
+        query_data = fetch_queries_data()
+
+        # Display User Data with Download Button
+        if not user_data.empty:
+            st.subheader("Registered Users")
+            st.dataframe(user_data, use_container_width=True)
+
+            # Optional: Export Users as CSV with a button
+            st.download_button(
+                label="Download User Data CSV",
+                data=user_data.to_csv(index=False),
+                file_name="user_data.csv",
+                mime="text/csv",
+                help="Click to download the user data in CSV format"
+            )
+        else:
+            st.warning("No data found in the users table.")
 
         # Fetch admin data
         admin_data = fetch_admin_data()
@@ -93,10 +153,10 @@ def main():
             st.subheader("Admin Data Overview")
             st.dataframe(admin_data)
 
-if __name__ == "__main__":
-    main()
-
 # Footer at the bottom of the sidebar
 st.sidebar.markdown("---")
 st.sidebar.text("MyHealthAlly © 2024")
 st.sidebar.text("All rights reserved.")
+
+if __name__ == "__main__":
+    main()

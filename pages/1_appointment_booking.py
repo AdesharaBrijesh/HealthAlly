@@ -70,16 +70,23 @@ def get_available_slots(doctor, date_str):
 
 # Appointment booking function
 def appointment_booking():
-    st.title("Book an Appointment")
+    st.set_page_config(page_title="Book an Appointment", page_icon="💉", layout="wide")
     
+    st.title("💼 Book Your Appointment")
+
+    # User data fetch if logged in
     user_data = fetch_user_data() if is_logged_in() else None
     
-    st.header("Appointment Details")
-    
-    # Pre-fill if user data exists
+    st.markdown("<hr>", unsafe_allow_html=True)
+
+    # Appointment Details Section
+    st.header("📋 Appointment Details")
+
+    # Pre-fill user data if available
     name = st.text_input("Name", user_data.get("username") if user_data else "")
     enrollment_number = st.text_input("Enrollment Number", user_data.get("enrollment_number") if user_data else "", max_chars=11)
     hosteller_status = st.radio("Are you a Hosteller or Commuter?", ["Hosteller", "Commuter"], index=0 if user_data and user_data.get("hostel") else 1)
+
     hostel = ""
     if hosteller_status == "Hosteller":
         hostel = st.selectbox("Select Hostel", [
@@ -92,7 +99,7 @@ def appointment_booking():
             "PARA KELAVANI MANDAL-MEHSANA", "RAMPURA HOSTEL", "SERVANT QUARTER HOSTEL", 
             "VISHWA HOSTEL", "GITANJALI BLOCK - 1", "GITANJALI BLOCK - 2", "ANMOL HEIGHTS HOSTEL", 
             "GIRLS EXECUTIVE A1", "GIRLS EXECUTIVE A2", "Virtuous"
-            ])
+        ])
     
     contact_number = st.text_input("Contact Number (+91)", user_data.get("contact_number") if user_data else "", max_chars=10)
     selected_department = st.selectbox("College/Department", ["AMPICS", "BSPP", "CCE", "CHAS", "CHSS", "CMEC", "CMS", "CMSR", "DCS", "DMARI", "DSW", "GNUR", "ICT", "IOA", "IOD", "IOO", "IOP", "IOT", "JIM", "KBION", "KKIASR", "MUIS", "SKPCPER", "UVPCE", "VMPCMS", "VMPIM", "GANPAT VIDHYALAY", "SMGPSS"], index=0)
@@ -133,7 +140,7 @@ def appointment_booking():
         return
 
     # Book appointment button
-    if st.button("Book Appointment"):
+    if st.button("📅 Book Appointment"):
         appointment_data = {
             "name": name,
             "enrollment_number": enrollment_number,
@@ -153,10 +160,10 @@ def appointment_booking():
         
         # Insert appointment into database
         appointments_collection.insert_one(appointment_data)
-        st.success("Appointment booked successfully!")
+        st.success("Appointment booked successfully! 🎉")
         
         # Show appointment summary
-        st.subheader("Appointment Summary")
+        st.subheader("📋 Appointment Summary")
         st.write(f"**Name:** {name}")
         st.write(f"**Enrollment Number:** {enrollment_number}")
         st.write(f"**Hosteller Status:** {hosteller_status}")
@@ -168,7 +175,8 @@ def appointment_booking():
         st.write(f"**Doctor's Working Hours:** {selected_doctor_data['work_hours']['start_time']} - {selected_doctor_data['work_hours']['end_time']}")
         st.write(f"**Disease/Condition:** {disease}")
         st.write(f"**Appointment Date:** {selected_date.strftime('%Y-%m-%d')}")
-        st.write(f"**Time Slot:** {time_slot}")
+        st.write(f"**Appointment Time:** {time_slot}")
 
-# Call appointment booking function
-appointment_booking()
+
+if __name__ == "__main__":
+    appointment_booking()
