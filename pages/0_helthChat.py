@@ -69,7 +69,7 @@ def create_llm_chain():
     GROQ_API_KEY = "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"
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
-        model_name="gemma-7b-it",
+        model_name="gemma2-9b-it",
         temperature=0.5,
         max_tokens=500
     )
