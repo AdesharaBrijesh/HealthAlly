@@ -143,6 +143,16 @@ Once the application is up and running, here's how to use it:
 
 We welcome contributions! If you'd like to contribute to the project, feel free to fork the repository and submit a pull request with your changes. Please ensure to follow the project's code style and include tests where applicable.
 
+To contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a Pull Request.
+
+
 ---
 
 ## License
