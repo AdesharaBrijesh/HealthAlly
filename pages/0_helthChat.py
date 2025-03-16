@@ -66,7 +66,7 @@ def search_medicine(query):
 
 # Create LangChain LLMChain
 def create_llm_chain():
-    GROQ_API_KEY = "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"
+    GROQ_API_KEY = "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"
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
         model_name="gemma2-9b-it",
